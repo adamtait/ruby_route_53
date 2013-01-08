@@ -35,7 +35,7 @@ module Route53
       uri = URI(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true if uri.scheme == "https"
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE if RUBY_VERSION.start_with?("1.8")
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       time = get_date
       hmac = HMAC::SHA256.new(@secret)
       hmac.update(time)
@@ -92,7 +92,7 @@ module Route53
         uri = URI(@endpoint)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true if uri.scheme == "https"
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE if RUBY_VERSION.start_with?("1.8")
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         resp = nil
         puts "Making Date Request" if @verbose
         http.start { |http| resp = http.head('/date') }
